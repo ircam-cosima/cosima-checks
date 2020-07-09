@@ -1,0 +1,23 @@
+{
+  "name": "birds",
+  "version": "1.2.0",
+  "description": "Collective Sound Check: Birds",
+  "main": "birds.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@git.forge.ircam.fr/cosima-birds.git"
+  },
+  "authors": [
+    "Norbert Schnell",
+    "Sébastien Robaszkiewicz"
+  ],
+  "dependencies": {
+    "audio-context": "git://github.com/Ircam-RnD/audio-context.git#master",
+    "loaders": "git://github.com/Ircam-RnD/loaders.git#master",
+    "simple-scheduler": "git://github.com/Ircam-RnD/simple-scheduler.git#master",
+    "segment-engine": "git://github.com/Ircam-RnD/segment-engine.git#master"
+  }
+}

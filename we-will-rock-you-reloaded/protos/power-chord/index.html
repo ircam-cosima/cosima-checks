@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  <style type="text/css"></style>
+
+  <title>CoSiMa WWRY:R Power Chord</title>
+
+  <!-- CoSiMa utils -->
+  <script src="cosima/utils/AudioContextMonkeyPatch.js"></script>
+  <script src="cosima/utils/platform.js"></script>
+  <script src="cosima/utils/unify.js"></script>
+  <script src="cosima/utils/filters.js"></script>
+
+  <!-- WAVE dependencies & lib -->
+  <script src="cosima/wave/dep/lodash.underscore.js"></script>
+  <script src="cosima/wave/dep/underscore.string.js"></script>
+  <script src="cosima/wave/dep/backbone.events.js"></script>
+  <script src="cosima/wave/dep/property-check.js"></script>
+  <script src="cosima/wave/dep/node-uuid.js"></script>
+  <script src="cosima/wave/buffer-loader.js"></script>
+  <script src="cosima/wave/lib/wave.audio.scheduler.js"></script>
+  <script src="cosima/wave/lib/wave.audio.granular-engine.js"></script>
+
+  <!-- jQuery -->
+  <script src="cosima/jquery/jquery.js"></script>
+
+  <style>
+  body { 
+    background: #333; 
+    color: gray; 
+    margin: 0;
+    padding: 0;
+    font: 12pt Arial, sans-serif; 
+  }
+
+   .title {
+    position: fixed; 
+    top: 0px; 
+    left: 0px;
+    padding: 5% 5%;
+    font-size: 4em;
+    font-weight: bold;
+  }
+
+  .logo {
+    position: fixed; 
+    bottom: 0px; 
+    right: 0px;
+  }
+
+  .debug {
+    color: #ff0; 
+    font-size: 4em; 
+  }
+
+  .big-centered-text {
+    display: table-cell;
+    width: 400px;
+    height: 400px;
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  .small-centered-text {
+    display: table-cell;
+    width: 200px;
+    height: 200px;
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  .big-centered-btn {
+    width: 400px;
+    height: 400px;
+    border-radius: 400px;
+
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    padding: 50px 50px;
+    margin: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    text-align: center;
+    letter-spacing: 0.1em;
+
+    display: inline-block;
+    font-size: 5em;
+    white-space: nowrap;
+    cursor: pointer;
+    text-transform: lowercase;
+
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+
+    background-image: none;
+    border: 1px solid transparent;
+  }
+
+  .small-bottom-left-btn {
+    width: 200px;
+    height: 200px;
+    border-radius: 200px;
+
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    padding: 10px 10px;
+    margin: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    text-align: center;
+    letter-spacing: 0.1em;
+
+    display: inline-block;
+    font-size: 2em;
+    white-space: nowrap;
+    cursor: pointer;
+    text-transform: lowercase;
+
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+
+    background-image: none;
+    border: 1px solid transparent;
+  }
+
+  .btn-gray {
+    color: #fff;
+    background-color: #666;
+    border-color: #666;
+  }
+
+  .btn-blue-gray {
+    color: #fff;
+    background-color: #7189A7;
+    border-color: #7189A7;
+  }
+
+  .btn-blue {
+    color: #fff;
+    background-color: #428bca;
+    border-color: #357ebd;
+  }
+
+  .btn-orange {
+    color: #fff;
+    background-color: #ff9900;
+    border-color: #ff9900;
+  }
+  </style>
+
+</head>
+<body>
+
+  <div class="title">wwry:r power chord</div>
+  <a href="/"><img class="logo" src="cosima/images/cosima-logo-small.png"></a>
+
+  <!-- div id="debug" class="debug">debug text</div -->
+
+  <div id="start-button" class="big-centered-btn btn-gray">
+    <div id="start-button-text" class="big-centered-text">testing</div>
+  </div>
+
+  <!-- main -->
+  <script src="main.js"></script>
+
+</body>
+</html>

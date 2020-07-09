@@ -1,0 +1,298 @@
+
+/* ==========================================================================
+ * Custom styles
+ * ========================================================================== */
+
+h1 {
+  font-size: 0.8em;
+  font-weight: 300;
+  letter-spacing: 0.25em;
+	margin: 1.25em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+p {
+  font-size: 0.8em;
+  letter-spacing: 0.07em;
+  padding: 2em;
+  text-align: center;
+}
+
+.bird {
+  padding: 0 2em;
+  text-align: center;
+  font-style: italic;
+}
+
+
+/* ==========================================================================
+ * WIP
+ * ========================================================================== */
+
+
+html {
+  height: 100%;
+}
+
+body {
+  color: #ffffff;
+  font-family: 'Lato', 'Helvetica Neue', 'Helvetica', sans-serif;
+  font-size: 20px;
+  height: 100%;
+  letter-spacing: 0.05em;
+  width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.container {
+  height: 100%;
+  left: 0;
+  /*position: fixed;*/
+  overflow-x: hidden;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  top: 0;
+  width: 100%;
+  -webkit-transition: all 0.3s;
+     -moz-transition: all 0.3s;
+      -ms-transition: all 0.3s;
+       -o-transition: all 0.3s;
+          transition: all 0.3s;
+}
+
+.btn {
+  background: none;
+  border-radius: 3em;
+  border: 0.15em solid #fff;
+  cursor: pointer;
+  display: block;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  margin: 1em;
+  outline: none;
+  overflow: hidden;
+  padding: 1em;
+  -webkit-tap-highlight-color: transparent;
+  text-align: center;
+  text-transform: uppercase;
+  -webkit-transition: all 0.3s;
+     -moz-transition: all 0.3s;
+      -ms-transition: all 0.3s;
+       -o-transition: all 0.3s;
+          transition: all 0.3s;
+}
+
+/*.btn:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}*/
+
+/*.btn:active,*/
+.btn.selected {
+  /*background-color: rgba(255, 255, 255, 0.1);*/
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.btn.idle {
+  border-color: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.2);
+}
+
+
+
+/* Colors
+ * ========================================================================== */
+
+.turquoise {
+  background: #1abc9c;
+}
+/*.turquoise .btn:active,*/
+.turquoise .btn.selected {
+  color: #1abc9c;
+}
+
+.green-sea {
+  background: #16a085;
+}
+/*.green-sea .btn:active,*/
+.green-sea .btn.selected {
+  color: #16a085;
+}
+
+.emerald {
+  background: #2ecc71;
+}
+/*.emerald .btn:active,*/
+.emerald .btn.selected {
+  color: #2ecc71;
+}
+
+.nephritis {
+  background: #27ae60;
+}
+/*.nephritis.btn:active,*/
+.nephritis.btn.selected {
+  color: #27ae60;
+}
+
+.peter-river {
+  background: #3498db;
+}
+/*.peter-river .btn:active,*/
+.peter-river .btn.selected {
+  color: #3498db;
+}
+
+.belize-hole {
+  background: #2980b9;
+}
+/*.belize-hole .btn:active,*/
+.belize-hole .btn.selected {
+  color: #2980b9;
+}
+
+.amethyst {
+  background: #9b59b6;
+}
+/*.amethyst .btn:active,*/
+.amethyst .btn.selected {
+  color: #9b59b6;
+}
+
+.wisteria {
+  background: #8e44ad;
+}
+/*.wisteria .btn:active,*/
+.wisteria .btn.selected {
+  color: #8e44ad;
+}
+
+.wet-asphalt {
+  background: #34495e;
+}
+/*.wet-asphalt .btn:active,*/
+.wet-asphalt .btn.selected {
+  color: #34495e;
+}
+
+.midnight-blue {
+  background: #2c3e50;
+}
+/*.midnight-blue .btn:active,*/
+.midnight-blue .btn.selected {
+  color: #2c3e50;
+}
+
+.sun-flower {
+  background: #f1c40f;
+}
+/*.sun-flower .btn:active,*/
+.sun-flower .btn.selected {
+  color: #f1c40f;
+}
+
+.orange {
+  background: #f39c12;
+}
+/*.orange .btn:active,*/
+.orange .btn.selected {
+  color: #f39c12;
+}
+
+.carrot {
+  background: #e67e22;
+}
+/*.carrot .btn:active,*/
+.carrot .btn.selected {
+  color: #e67e22;
+}
+
+.pumpkin {
+  background: #d35400;
+}
+/*.pumpkin .btn:active,*/
+.pumpkin .btn.selected {
+  color: #d35400;
+}
+
+.alizarin {
+  background: #e74c3c;
+}
+/*.alizarin .btn:active,*/
+.alizarin .btn.selected {
+  color: #e74c3c;
+}
+
+.pomegranate {
+  background: #c0392b;
+}
+/*.pomegranate .btn:active,*/
+.pomegranate .btn.selected {
+  color: #c0392b;
+}
+
+.clouds {
+  background: #ecf0f1;
+  color: #bdc3c7;
+}
+
+.silver {
+  background: #bdc3c7;
+}
+/*.silver .btn:active,*/
+.silver .btn.selected {
+  color: #bdc3c7;
+}
+
+.concrete {
+  background: #95a5a6;
+}
+/*.concrete .btn:active,*/
+.concrete .btn.selected {
+  color: #95a5a6;
+}
+
+.asbestos {
+  background: #7f8c8d;
+}
+/*.asbestos .btn:active,*/
+.asbestos .btn.selected {
+  color: #7f8c8d;
+}
+
+
+
+/* ==========================================================================
+   Media Queries
+   ========================================================================== */
+
+@media only screen and (min-width: 35em) {
+  body {
+    font-size: 2em;
+  }
+
+  .btn {
+    padding: 1em;
+  }
+}
+
+@media only screen and (min-width: 50em) {
+  body {
+    font-size: 4em;
+  }
+
+  .btn {
+    padding: 0.5em;
+  }
+}
+
+@media print,
+       (-o-min-device-pixel-ratio: 5/4),
+       (-webkit-min-device-pixel-ratio: 1.25),
+       (min-resolution: 120dpi) {
+
+}
