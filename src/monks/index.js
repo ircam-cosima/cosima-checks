@@ -6,12 +6,10 @@ import Mvavrg from '../utils/Mvavrg';
 import { setupOverlay, setupMotionInput, resumeAudioContext } from '../utils/helpers';
 
 const audioContext = audio.audioContext;
-let selectorButtons = null;
 
 let initializedMotionAndAudio = false;
 let errorOverlay = null;
 let motionModule = null;
-let motionFilter = null;
 let synth = null;
 let positionFilter = null;
 let cutoffFilter = null;
@@ -23,11 +21,11 @@ function onAcceleration(acc) {
     const x = acc[0];
     const y = acc[1];
     const z = acc[2];
-    var pitch = -2 * Math.atan(y / Math.sqrt(z * z + x * x)) / Math.PI;
-    var roll = -2 * Math.atan(x / Math.sqrt(y * y + z * z)) / Math.PI;
+    const pitch = -2 * Math.atan(y / Math.sqrt(z * z + x * x)) / Math.PI;
+    const roll = -2 * Math.atan(x / Math.sqrt(y * y + z * z)) / Math.PI;
 
-    var relativePosition = 0.5 * (1 + roll);
-    var cutoffNorm = 1 + pitch;
+    const relativePosition = 0.5 * (1 + roll);
+    const cutoffNorm = 1 + pitch;
 
     relativePosition = positionFilter.input(relativePosition);
     cutoffNorm = cutoffFilter.input(cutoffNorm);
@@ -50,7 +48,7 @@ function onAcceleration(acc) {
   }
 }
 
-function initMotionAndAudio(index) {
+function initMotionAndAudio() {
   Promise.all([resumeAudioContext(audioContext), setupMotionInput('accelerationIncludingGravity')])
     .then((results) => {
       motionModule = results[1];
@@ -61,27 +59,6 @@ function initMotionAndAudio(index) {
       errorOverlay.classList.add('open');
     });
 }
-
-function startStop(index) {
-  var instrumentButton = document.querySelector("[data-sound='" + sounds[index] + "']");
-  var instrumentButtons = document.querySelectorAll('[data-sound]');
-
-  if (synth.bufferIndex === index) {
-    instrumentButton.className = "btn";
-  } else {
-    synth.start(index);
-
-    if (synth.bufferIndex >= 0) {
-      kickAudio();
-
-      for (var i = 0; i < instrumentButtons.length; i++)
-        instrumentButtons[i].className = "btn";
-
-      instrumentButton.className = "btn selected";
-    }
-  }
-}
-
 
 function onOn(index) {
   if (!initializedMotionAndAudio) {
@@ -103,11 +80,11 @@ function main() {
   positionFilter = new Mvavrg(4);
   cutoffFilter = new Mvavrg(8);
 
-  selectorButtons = new SelectorButtons('button-container', onOn, onOff);
+  const selectorButtons = new SelectorButtons('button-container', onOn, onOff);
 
   for (let i = 0; i < sounds.length; i++) {
     selectorButtons.add(sounds[i]);
-    synth.loadBuffer('sounds/' + sounds[i] + '.wav', i, () => selectorButtons.enable(i));
+    synth.loadBuffer('sounds/' + sounds[i] + '.wav', () => selectorButtons.enable(i));
   }
 
   errorOverlay = document.getElementById('error-overlay');

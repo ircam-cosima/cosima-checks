@@ -6,7 +6,7 @@ const GranularEngine = audio.GranularEngine;
 const scheduler = audio.getSimpleScheduler();
 
 class ScrubSynth {
-  constructor(buffer) {
+  constructor() {
     this.buffers = [];
     this.bufferIndex = -1;
     this.bufferDuration = 0;
@@ -16,8 +16,11 @@ class ScrubSynth {
     this.logCutoffRatio = Math.log(this.maxCutoff / this.minCutoff);
 
     this.granular = new GranularEngine();
-
-    this.setHighParams();
+    this.granular.periodAbs = 0.02;
+    this.granular.periodRel = 0;
+    this.granular.durationAbs = 0.08;
+    this.granular.durationRel = 0;
+    this.granular.gain = 0.25;
 
     this.lowpass = audioContext.createBiquadFilter();
     this.lowpass.type = 0;
@@ -34,7 +37,11 @@ class ScrubSynth {
     this.output = this.level;
   }
 
-  loadBuffer(fileName, index, callback = null) {
+  loadBuffer(fileName, callback = null) {
+    const index = this.buffers.length;
+
+    this.buffers.push(null);
+
     new loaders.AudioBufferLoader()
       .load(fileName)
       .then((audioBuffer) => {
@@ -44,22 +51,6 @@ class ScrubSynth {
           callback();
       });
   }
-
-  setHighParams(value) {
-    this.granular.periodAbs = 0.02;
-    this.granular.periodRel = 0.0;
-    this.granular.durationAbs = 0.08;
-    this.granular.durationRel = 0.0;
-    this.granular.gain = this.granular.periodAbs / this.granular.durationAbs;
-  };
-
-  setLowParams(value) {
-    this.granular.periodAbs = 0.04;
-    this.granular.periodRel = 0.0;
-    this.granular.durationAbs = 0.16;
-    this.granular.durationRel = 0.0;
-    this.granular.gain = this.granular.periodAbs / this.granular.durationAbs;
-  };
 
   setCutoffRel(value) {
     this.lowpass.frequency.value = this.minCutoff * Math.exp(this.logCutoffRatio * value);

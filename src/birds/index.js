@@ -7,7 +7,6 @@ import Lowpass from '../utils/Lowpass';
 import { setupOverlay, setupMotionInput, resumeAudioContext } from '../utils/helpers';
 
 const audioContext = audio.audioContext;
-let selectorButtons = null;
 
 let initializedMotionAndAudio = false;
 let errorOverlay = null;
@@ -30,7 +29,7 @@ const sounds = [
   'vanellus_vanellus',
 ];
 
-function onMotionEnergy(energy) {
+function onEnergy(energy) {
   energy = motionFilter.input(energy);
   energy = energy * energy;
 
@@ -46,7 +45,7 @@ function onMotionEnergy(energy) {
   lastEnergy = energy;
 }
 
-function initMotionAndAudio(index) {
+function initMotionAndAudio() {
   Promise.all([resumeAudioContext(audioContext), setupMotionInput('energy')])
     .then((results) => {
       motionModule = results[1];
@@ -54,7 +53,7 @@ function initMotionAndAudio(index) {
       const period = motionModule.period;
       motionFilter = new Lowpass(1 / period, 1);
 
-      motionModule.addListener(onMotionEnergy);
+      motionModule.addListener(onEnergy);
     })
     .catch((err) => {
       errorOverlay.innerHTML = `Oops, ${err}.`;
@@ -93,11 +92,11 @@ function main() {
   synth = new ShakerSynth();
   synth.output.connect(audioContext.destination);
 
-  selectorButtons = new SelectorButtons('button-container', onOn, onOff);
+  const selectorButtons = new SelectorButtons('button-container', onOn, onOff);
 
   for (let i = 0; i < sounds.length; i++) {
     selectorButtons.add(sounds[i]);
-    synth.addSound('sounds/' + sounds[i], i, () => selectorButtons.enable(i));
+    synth.addSound('sounds/' + sounds[i], () => selectorButtons.enable(i));
   }
 
   errorOverlay = document.getElementById('error-overlay');

@@ -83,7 +83,11 @@ class ShakerSynth {
     this.engine.gain = value;
   };
 
-  addSound(name, index, callback = null) {
+  addSound(name, callback = null) {
+    const index = this.audioBuffers.length;
+
+    this.audioBuffers.push(null);
+
     new loaders.AudioBufferLoader()
       .load(name + '.mp3')
       .then((audioBuffer) => {
