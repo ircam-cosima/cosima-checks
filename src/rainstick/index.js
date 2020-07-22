@@ -23,6 +23,7 @@ const massBounceFactor = 0.7;
 let massPos = 0.5;
 let massSpeed = 0;
 let initMass = true;
+let orientation = null;
 
 const sounds = ["water", "wood", "stone", "money", "hendrix", "voice"];
 
@@ -37,7 +38,16 @@ function onAcceleration(arr) {
     const contSize = Math.max(contWidth, contHeight);
     let massAcc = y / massMass;
 
-    if (window.orientation == -90 || window.orientation == 180)
+    if (window.orientation !== orientation) {
+      orientation = window.orientation;
+
+      if (orientation == 0 || orientation == 180)
+        movingMass.style.left = `${0.5 * (contWidth - massSize)}px`;
+      else
+        movingMass.style.top = `${0.5 * (contHeight - massSize)}px`;
+    }
+
+    if (orientation == -90 || orientation == 180)
       massAcc *= -1;
 
     if (initMass) {
@@ -48,7 +58,6 @@ function onAcceleration(arr) {
 
     massSpeed += massAcc * dt;
     massSpeed *= massFrictionLossFactor;
-
     massPos += massSpeed * dt * contSize;
 
     const maxPosition = contSize - massSize;
@@ -83,13 +92,10 @@ function onAcceleration(arr) {
       gain = envFilter.input(gain);
       synth.setGain(gain);
 
-      if (window.orientation == 0) {
+      if (orientation == 0)
         movingMass.style.top = `${massPos}px`;
-        movingMass.style.left = `${0.5 * (contWidth - massSize)}px`;
-      } else {
-        movingMass.style.top = `${0.5 * (contHeight - massSize)}px`;
+      else
         movingMass.style.left = `${massPos}px`;
-      }
     }
   }
 }
