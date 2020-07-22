@@ -58,4 +58,22 @@ export default [{
   watch: {
     clearScreen: false
   },
+},{
+  input: 'src/rainstick/index.js',
+  output: [{
+    file: 'public/rainstick/index.js',
+    format: 'iife',
+    sourcemap: 'inline',
+    name: 'app',
+  }, ],
+  plugins: [
+    commonjs(),
+    babel(),
+    resolve({ preferBuiltins: true }),
+    globals(),
+    nodeBuiltins(),
+  ],
+  watch: {
+    clearScreen: false
+  },
 },];
