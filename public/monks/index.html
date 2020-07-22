@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>CoSiMa Birds</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
+  <link rel="icon" type="image/png" href="../images/favicon.png">
+  <style> :root { --bg-color: #8e44ad; } </style>
+  <link rel='stylesheet' href='../styles.css' />
+  <script src="./index.js"></script>
+</head>
+
+<body ontouchstart="">
+  <div id="container" class="container">
+    <h1>monks</h1>
+    <div id="button-container" class="button-container"></div>
+    <div id="footer" class="footer">
+      <div id="logo-button" class="footer-button"><a href=".."><img src="../images/cosc-logo-nodots.svg"></a></div>
+      <div id="info-button" class="footer-button" data-toggle="overlay" data-target="info"><img src="../images/info-logo.svg"></div>
+      <div id="help-button" class="footer-button" data-toggle="overlay" data-target="help"><img src="../images/qm-logo.svg"></div>
+    </div>
+  </div>
+
+  <!-- error overlay -->
+  <div id="error-overlay" class="overlay"></div>
+
+  <!-- info overlay -->
+  <div id="info-overlay" class="overlay close-cross">
+    <p>This application uses a short extract of the song &ldquo;Early Morning Melody&rdquo; from Meredith Monk's &ldquo;Book of the Days&rdquo;.</p>
+    <p>The recording of Tibetan chant has been published by Falsalama on <a target="_blank" href="http://www.freesound.org/">freesound.org
+  </div>
+
+  <!-- help overlay -->
+  <div id="help-overlay" class="overlay close-cross">
+    <p>Choose Meredith or the Tibetan Monk.</p>
+    <p>Hold your device horizontally and turn it slowly sidewards to the left and right to modulate the voices.</p>
+    <p>Turn it up vertically towards you for muting the voices.</p>
+  </div>
+</body>
+
+</html>

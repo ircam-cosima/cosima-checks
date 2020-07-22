@@ -1,0 +1,11 @@
+node_modules/
+.DS_Store
+Thumbs.db
+bin/.browserify-cache
+package-lock.json
+
+public/*.js
+public/vendors
+dist/
+
+*.pem
