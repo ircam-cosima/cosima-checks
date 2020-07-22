@@ -134,6 +134,10 @@ a {
   transition-duration: 0.5s;
 }
 
+.overlay a {
+  text-decoration: underline dotted;
+}
+
 .close-cross:before {
   position: absolute;
   content: "\00d7";
