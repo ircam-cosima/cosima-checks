@@ -1,4 +1,4 @@
-import '@babel/polyfill';
+//import '@babel/polyfill';
 import { default as audio } from 'waves-audio';
 import SelectorButtons from '../utils/SelectorButtons';
 import RainSynth from '../utils/RainSynth';
@@ -7,6 +7,7 @@ import { setupOverlay, setupMotionInput, resumeAudioContext } from '../utils/hel
 
 const audioContext = audio.audioContext;
 
+let selectorButtons = null;
 let initializedMotionAndAudio = false;
 let errorOverlay = null;
 let motionModule = null;
@@ -108,6 +109,10 @@ function initMotionAndAudio() {
       motionPeriod = motionModule.period;
     })
     .catch((err) => {
+      synth.stop();
+      selectorButtons.deselect();
+      movingMass.classList.add("hidden");
+
       errorOverlay.innerHTML = `Oops, ${err}.`;
       errorOverlay.classList.add('open');
     });
@@ -143,8 +148,8 @@ function init() {
   movingMass = document.getElementById("moving-mass");
   massSize = movingMass.getBoundingClientRect().width;
 
-  const selectorButtons = new SelectorButtons('button-container', onOn, onOff);
-
+  selectorButtons = new SelectorButtons('button-container', onOn, onOff);
+  
   for (let i = 0; i < sounds.length; i++) {
     selectorButtons.add(sounds[i]);
     synth.loadBuffer('sounds/' + sounds[i] + '.mp3', () => selectorButtons.enable(i));

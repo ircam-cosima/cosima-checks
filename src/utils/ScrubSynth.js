@@ -23,7 +23,7 @@ class ScrubSynth {
     this.granular.gain = 0.25;
 
     this.lowpass = audioContext.createBiquadFilter();
-    this.lowpass.type = 0;
+    this.lowpass.type = 'lowpass';
     this.lowpass.frequency.value = 0;
     this.lowpass.Q.value = 0;
 

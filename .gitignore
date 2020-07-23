@@ -4,8 +4,6 @@ Thumbs.db
 bin/.browserify-cache
 package-lock.json
 
-public/*.js
-public/*/*.js
 public/vendors
 dist/
 */mojo-guitar

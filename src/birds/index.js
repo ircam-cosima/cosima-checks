@@ -1,4 +1,4 @@
-import '@babel/polyfill';
+//import '@babel/polyfill';
 import { default as audio } from 'waves-audio';
 import MobileDetect from 'mobile-detect';
 import SelectorButtons from '../utils/SelectorButtons';
@@ -8,6 +8,7 @@ import { setupOverlay, setupMotionInput, resumeAudioContext } from '../utils/hel
 
 const audioContext = audio.audioContext;
 
+let selectorButtons = null;
 let initializedMotionAndAudio = false;
 let errorOverlay = null;
 let motionModule = null;
@@ -56,6 +57,9 @@ function initMotionAndAudio() {
       motionModule.addListener(onEnergy);
     })
     .catch((err) => {
+      synth.stop();
+      selectorButtons.deselect();
+
       errorOverlay.innerHTML = `Oops, ${err}.`;
       errorOverlay.classList.add('open');
     });
@@ -92,8 +96,8 @@ function main() {
   synth = new ShakerSynth();
   synth.output.connect(audioContext.destination);
 
-  const selectorButtons = new SelectorButtons('button-container', onOn, onOff);
-
+  selectorButtons = new SelectorButtons('button-container', onOn, onOff);
+  
   for (let i = 0; i < sounds.length; i++) {
     selectorButtons.add(sounds[i]);
     synth.addSound('sounds/' + sounds[i], () => selectorButtons.enable(i));

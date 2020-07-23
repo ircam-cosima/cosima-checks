@@ -16,5 +16,4 @@ class Lowpass {
   }
 }
 
-
 export default Lowpass;

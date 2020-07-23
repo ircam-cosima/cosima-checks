@@ -1,4 +1,4 @@
-import '@babel/polyfill';
+//import '@babel/polyfill';
 import { default as audio } from 'waves-audio';
 import SelectorButtons from '../utils/SelectorButtons';
 import ScrubSynth from '../utils/ScrubSynth';
@@ -7,6 +7,7 @@ import { setupOverlay, setupMotionInput, resumeAudioContext } from '../utils/hel
 
 const audioContext = audio.audioContext;
 
+let selectorButtons = null;
 let initializedMotionAndAudio = false;
 let errorOverlay = null;
 let motionModule = null;
@@ -55,6 +56,9 @@ function initMotionAndAudio() {
       motionModule.addListener(onAcceleration);
     })
     .catch((err) => {
+      synth.stop();
+      selectorButtons.deselect();
+
       errorOverlay.innerHTML = `Oops, ${err}.`;
       errorOverlay.classList.add('open');
     });
@@ -80,8 +84,8 @@ function main() {
   positionFilter = new Mvavrg(4);
   cutoffFilter = new Mvavrg(8);
 
-  const selectorButtons = new SelectorButtons('button-container', onOn, onOff);
-
+  selectorButtons = new SelectorButtons('button-container', onOn, onOff);
+  
   for (let i = 0; i < sounds.length; i++) {
     selectorButtons.add(sounds[i]);
     synth.loadBuffer('sounds/' + sounds[i] + '.wav', () => selectorButtons.enable(i));
