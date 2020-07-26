@@ -24,9 +24,8 @@ function onAcceleration(acc) {
     const z = acc[2];
     const pitch = -2 * Math.atan(y / Math.sqrt(z * z + x * x)) / Math.PI;
     const roll = -2 * Math.atan(x / Math.sqrt(y * y + z * z)) / Math.PI;
-
-    const relativePosition = 0.5 * (1 + roll);
-    const cutoffNorm = 1 + pitch;
+    let relativePosition = 0.5 * (1 + roll);
+    let cutoffNorm = 1 + pitch;
 
     relativePosition = positionFilter.input(relativePosition);
     cutoffNorm = cutoffFilter.input(cutoffNorm);
