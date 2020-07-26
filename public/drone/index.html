@@ -1,74 +1,42 @@
-<!-- <!DOCTYPE html> -->
+<!DOCTYPE html>
+<html>
+
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">  
-
   <title>CoSiMa Drone</title>
-
-  <!-- Icons -->
-  <link rel="apple-touch-icon-precomposed" href="../cosima/images/apple-touch-icon.png">
-  <link rel="icon" type="image/png" href="../cosima/images/favicon.png">
-  
-  <!-- Stylesheets -->
-  <link rel='stylesheet' href='../cosima/css/boilerplate.css' />
-  <link rel='stylesheet' href='../cosima/css/normalize.css' />
-  <link rel='stylesheet' href='../cosima/css/style.css' />
-
- <!-- CoSiMa utils -->
-  <script src="../cosima/utils/AudioContextMonkeyPatch.js"></script>
-  <script src="../cosima/utils/fastclick.js"></script>
-  <script src="../cosima/utils/platform.js"></script>
-  <script src="../cosima/utils/check.js"></script>
-  <script src="../cosima/utils/unify.js"></script>
-  <script src="../cosima/utils/classie.js"></script>
-  <script src="../cosima/utils/overlay.js"></script>
-  <script src="../cosima/utils/modernizr.js"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">  
+  <link rel="icon" type="image/png" href="../images/favicon.png">
+  <style>:root { --bg-color: #f39c12; }</style>
+  <link rel='stylesheet' href='../styles.css' />
+  <script src="./index.js"></script>
 </head>
 
-<body class="clearfix midnight-blue">
-
-  <div class="container">
-    <h1>Drone</h1>
-    <div id="button" class="btn idle">loading</div>
-  </div>
-
-  <div id="footer" class="footer">
-    <div class="container">
-      <div class="col-6">
-        <button class="logo pull-left"><a href=".."><img src="../cosima/images/cosc-logo-nodots.svg"></a></button>
-      </div>
-      <div class="col-6">
-        <button id="instructions-btn" class="logo pull-right" data-toggle="overlay" data-target="instructions"><img src="../cosima/images/qm-logo.svg"></button>
-      </div>
+<body ontouchstart="">
+  <div id="container" class="container">
+    <h1>drone</h1>
+    <div id="button-container" class="button-container">
+      <div class = "selector-button">start</div>
+    </div>
+    <div id="footer" class="footer">
+      <div id="logo-button" class="footer-button"><a href=".."><img src="../images/cosc-logo-nodots.svg"></a></div>
+      <div id="info-button" class="footer-button" data-toggle="overlay" data-target="info"><img src="../images/info-logo.svg"></div>
+      <div id="help-button" class="footer-button" data-toggle="overlay" data-target="help"><img src="../images/qm-logo.svg"></div>
     </div>
   </div>
 
-  <!-- Instructions -->
-  <div id="instructions" class="overlay overlay-scale midnight-blue hidden">
-    <div class="overlay-content">
-      <button type="button" class="overlay-close" data-toggle="overlay" data-target="instructions">Close</button>
-      <div class="wrapper vertical-center">
-        <p>Start the drone and move the device to modulate the sound.</p> 
-        <p>Shake it strongly for electric shocks.</p>
-      </div>
-    </div>
+  <!-- error overlay -->
+  <div id="error-overlay" class="overlay"></div>
+
+  <!-- info overlay -->
+  <div id="info-overlay" class="overlay close-cross">
+    <p>The sound materials used by this application have been published at <a target="_blank" href="http://www.fuglestemmer.dk/">www.fuglestemmer.dk/</a>.</p>
   </div>
 
-  <!-- Platform check -->
-  <div id="blocker" class="overlay overlay-scale midnight-blue hidden"></div>
-  <script>cosima.check.platform();</script>
-
-  <!-- main -->
-  <script src="drone.js"></script>
-
-  <!-- Google Analytics -->
-  <script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-    ga('create', 'UA-52230948-1', 'ircam.fr');
-    ga('send', 'pageview');
-  </script>
+  <!-- help overlay -->
+  <div id="help-overlay" class="overlay close-cross">
+    <p>Start the drone and move the device to modulate the sound.</p> 
+    <p>Shake it strongly for electric shocks.</p>
+  </div>
 </body>
+
 </html>

@@ -1,21 +1,24 @@
-/**
- *  CoSiMa Sound Check Web Application (see http://cosima.ircam.fr/)
- *
- *  Authors: Norbert Schnell <Norbert.Schnell@ircam.fr>, Sébastien Robaszkiewicz <Sebastien.Robaszkiewicz@ircam.fr>
- *  Copyright (c) 2014 Ircam - Centre Pompidou
- *
- */
-var audioContext = require('audio-context');
-var scheduler = require('simple-scheduler');
-var loaders = require('loaders');
-var GranularEngine = require('granular-engine');
-var filters = require('../cosima/filters');
+import { default as audio } from 'waves-audio';
+import SelectorButtons from '../utils/SelectorButtons';
+import ShakerSynth from '../utils/ShakerSynth';
+import Lowpass from '../utils/Lowpass';
+import { setupOverlay, setupMotionInput, resumeAudioContext } from '../utils/helpers';
 
-var accFilterX = new filters.DiffInteg(0.5);
-var accFilterY = new filters.DiffInteg(0.5);
-var accFilterZ = new filters.DiffInteg(0.5);
+const audioContext = audio.audioContext;
 
-var drone = null;
+let selectorButtons = null;
+let initializedMotionAndAudio = false;
+let errorOverlay = null;
+let motionModule = null;
+let synth = null;
+let lastEnergy = 0;
+let lastLastEnergy = 0;
+
+let accFilterX = null; // = new Lowpass(1 / period, 1);
+let accFilterY = null;
+let accFilterZ = null;
+
+var synth = null;
 var buffer = null;
 var running = null;
 
@@ -26,19 +29,19 @@ function startStop() {
     button.addEventListener("click", startStop, false);
     running = false;
   } else if (!running) {
-    drone.start();
+    synth.start();
     running = true;
   } else {
-    drone.stop();
+    synth.stop();
     running = false;
   }
 
   if (running) {
-    button.innerHTML = "stop";
-    button.className = "btn selected";
+    button.innerHTML = 'stop';
+    button.classList.add('selected');
   } else {
-    button.innerHTML = "start";
-    button.className = "btn";
+    button.innerHTML = 'start';
+    button.classList.remove('selected');
   }
 }
 
@@ -76,14 +79,14 @@ function deviceMotionHandler(event) {
   }
 
   if (running) {
-    drone.setHum(gyro);
-    drone.setNoise(0.2 * acc);
+    synth.setHum(gyro);
+    synth.setNoise(0.2 * acc);
   }
 }
 
 function init() {
-  drone = new Drone();
-  drone.load(startStop);
+  synth = new DroneSynth();
+  synth.load(startStop);
 
   button = document.getElementById("button");
 
@@ -93,4 +96,4 @@ function init() {
   FastClick.attach(document.body);
 }
 
-window.addEventListener('DOMContentLoaded', init);
+window.addEventListener('load', init);
