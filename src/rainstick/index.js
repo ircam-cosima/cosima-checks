@@ -1,4 +1,4 @@
-//import '@babel/polyfill';
+import '@babel/polyfill';
 import { default as audio } from 'waves-audio';
 import SelectorButtons from '../utils/SelectorButtons';
 import { Mvavrg } from '../utils/filters';
