@@ -19,23 +19,32 @@ function setupOverlay(id, hasButton = true, callback = null) {
   return overlay;
 }
 
-function setupMotionInput(moduleName) {
+function setupMotionInput(moduleNames) {
   return new Promise((resolve, reject) => {
     const timeout = setTimeout(() => {
       reject('cannot find any motion sensors');
     }, 500)
 
     const initMotionInput = () => {
-      motionInput.init(moduleName)
+      motionInput.init(moduleNames)
         .then((modules) => {
-          const [motionModule] = modules;
+          if (modules.length === 2) {
+            clearTimeout(timeout);
 
-          clearTimeout(timeout);
+            if (modules[0] && modules[0].isValid && modules[1] && modules[1].isValid)
+              resolve(modules);
+            else
+              reject('cannot access requested motion sensor streams');
+          } else {
+            const [motionModule] = modules;
 
-          if (motionModule && motionModule.isValid)
-            resolve(motionModule);
-          else
-            reject('cannot get requested motion sensor stream');
+            clearTimeout(timeout);
+
+            if (motionModule && motionModule.isValid)
+              resolve(motionModule);
+            else
+              reject('cannot access requested motion sensor stream');
+          }
         });
     };
 

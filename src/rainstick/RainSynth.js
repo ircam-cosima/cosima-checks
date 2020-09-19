@@ -2,7 +2,6 @@ import { default as audio } from 'waves-audio';
 import { default as loaders } from 'waves-loaders';
 
 const audioContext = audio.audioContext;
-const GranularEngine = audio.GranularEngine;
 const scheduler = audio.getSimpleScheduler();
 
 class RainSynth {
@@ -15,23 +14,18 @@ class RainSynth {
     this.maxCutoff = 20000;
     this.logCutoffRatio = Math.log(this.maxCutoff / this.minCutoff);
 
-    this.granular = new GranularEngine();
+    const engine = new audio.GranularEngine();
+    engine.connect(audioContext.destination);
+    engine.centered = false;
+    engine.positionVar = 0.200;
+    engine.periodAbs = 0.050;
+    engine.periodRel = 0;
+    engine.durationAbs = 1.000;
+    engine.durationRel = 0;
+    engine.resamplingVar = 500;
+    engine.gain = 1.0;
+    this.engine = engine;
 
-    this.granular.centered = false;
-    this.granular.positionVar = 0.200;
-    this.granular.periodAbs = 0.050;
-    this.granular.periodRel = 0;
-    this.granular.durationAbs = 1.000;
-    this.granular.durationRel = 0;
-    this.granular.resamplingVar = 500;
-    this.granular.gain = 1.0;
-
-    this.level = audioContext.createGain();
-    this.granular.connect(this.level);
-
-    // audio i/o
-    this.input = null;
-    this.output = this.level;
   }
 
   loadBuffer(fileName, callback = null) {
@@ -50,26 +44,26 @@ class RainSynth {
   }
 
   setPosition(value) {
-    this.granular.position = value;
+    this.engine.position = value;
   };
 
   setPitch(value) {
-    this.granular.resampling = value;
+    this.engine.resampling = value;
   };
 
   setGain(value) {
-    this.granular.gain = value;
+    this.engine.gain = value;
   };
 
   start(index) {
     var buffer = this.buffers[index];
 
     if (buffer) {
-      this.granular.buffer = buffer;
+      this.engine.buffer = buffer;
       this.bufferDuration = buffer.duration;
 
       if (this.bufferIndex < 0)
-        scheduler.add(this.granular);
+        scheduler.add(this.engine);
 
       this.bufferIndex = index;
     }
@@ -77,7 +71,7 @@ class RainSynth {
 
   stop() {
     if (this.bufferIndex >= 0) {
-      scheduler.remove(this.granular);
+      scheduler.remove(this.engine);
       this.bufferIndex = -1;
     }
   }

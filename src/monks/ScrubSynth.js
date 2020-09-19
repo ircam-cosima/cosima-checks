@@ -2,7 +2,6 @@ import { default as audio } from 'waves-audio';
 import { default as loaders } from 'waves-loaders';
 
 const audioContext = audio.audioContext;
-const GranularEngine = audio.GranularEngine;
 const scheduler = audio.getSimpleScheduler();
 
 class ScrubSynth {
@@ -15,26 +14,22 @@ class ScrubSynth {
     this.maxCutoff = 20000;
     this.logCutoffRatio = Math.log(this.maxCutoff / this.minCutoff);
 
-    this.granular = new GranularEngine();
-    this.granular.periodAbs = 0.02;
-    this.granular.periodRel = 0;
-    this.granular.durationAbs = 0.08;
-    this.granular.durationRel = 0;
-    this.granular.gain = 0.25;
+    const lowpass = audioContext.createBiquadFilter();
+    lowpass.connect(audioContext.destination);
+    lowpass.type = 'lowpass';
+    lowpass.frequency.value = 0;
+    lowpass.Q.value = 0;
+    this.lowpass = lowpass;
 
-    this.lowpass = audioContext.createBiquadFilter();
-    this.lowpass.type = 'lowpass';
-    this.lowpass.frequency.value = 0;
-    this.lowpass.Q.value = 0;
-
-    this.level = audioContext.createGain();
-
-    this.granular.connect(this.lowpass);
-    this.lowpass.connect(this.level);
-
-    // audio i/o
-    this.input = null;
-    this.output = this.level;
+    const engine = new audio.GranularEngine();
+    engine.connect(this.lowpass);
+    engine.connect(audioContext.destination);
+    engine.periodAbs = 0.02;
+    engine.periodRel = 0;
+    engine.durationAbs = 0.08;
+    engine.durationRel = 0;
+    engine.gain = 0.25;
+    this.engine = engine;
   }
 
   loadBuffer(fileName, callback = null) {
@@ -57,25 +52,25 @@ class ScrubSynth {
   };
 
   setPositionRel(value) {
-    const margin = 0.5 * this.granular.durationAbs + this.granular.positionVar;
+    const margin = 0.5 * this.engine.durationAbs + this.engine.positionVar;
     const range = this.bufferDuration - 2 * margin;
     const position = margin + value * range;
-    this.granular.position = position;
+    this.engine.position = position;
   };
 
   setPitch(value) {
-    this.granular.resampling = value;
+    this.engine.resampling = value;
   };
 
   start(index) {
     const buffer = this.buffers[index];
 
     if (buffer) {
-      this.granular.buffer = buffer;
+      this.engine.buffer = buffer;
       this.bufferDuration = buffer.duration;
 
       if (this.bufferIndex < 0)
-        scheduler.add(this.granular);
+        scheduler.add(this.engine);
 
       this.bufferIndex = index;
     }
@@ -83,7 +78,7 @@ class ScrubSynth {
 
   stop() {
     if (this.bufferIndex >= 0) {
-      scheduler.remove(this.granular);
+      scheduler.remove(this.engine);
       this.bufferIndex = -1;
     }
   };

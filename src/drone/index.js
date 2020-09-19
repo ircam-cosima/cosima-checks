@@ -1,6 +1,6 @@
 import { default as audio } from 'waves-audio';
 import SelectorButtons from '../utils/SelectorButtons';
-import ShakerSynth from '../utils/ShakerSynth';
+import DroneSynth from './DroneSynth';
 import Lowpass from '../utils/Lowpass';
 import { setupOverlay, setupMotionInput, resumeAudioContext } from '../utils/helpers';
 

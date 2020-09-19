@@ -1,9 +1,9 @@
 //import '@babel/polyfill';
 import { default as audio } from 'waves-audio';
 import SelectorButtons from '../utils/SelectorButtons';
-import RainSynth from '../utils/RainSynth';
-import Mvavrg from '../utils/Mvavrg';
+import { Mvavrg } from '../utils/filters';
 import { setupOverlay, setupMotionInput, resumeAudioContext } from '../utils/helpers';
+import RainSynth from './RainSynth';
 
 const audioContext = audio.audioContext;
 
@@ -140,7 +140,6 @@ function onOff(index) {
 
 function init() {
   synth = new RainSynth();
-  synth.output.connect(audioContext.destination);
 
   envFilter = new Mvavrg(24);
 

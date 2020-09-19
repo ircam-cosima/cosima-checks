@@ -76,4 +76,22 @@ export default [{
   watch: {
     clearScreen: false
   },
+},{
+  input: 'src/wwry/index.js',
+  output: [{
+    file: 'public/wwry/index.js',
+    format: 'iife',
+    sourcemap: 'inline',
+    name: 'app',
+  }, ],
+  plugins: [
+    commonjs(),
+    babel(),
+    resolve({ preferBuiltins: true }),
+    globals(),
+    nodeBuiltins(),
+  ],
+  watch: {
+    clearScreen: false
+  },
 },];

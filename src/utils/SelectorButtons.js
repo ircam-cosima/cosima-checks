@@ -59,7 +59,7 @@ class SelectorButtons {
 
   _onClick(e) {
     const button = e.target;
-    const index = button.dataset.index;
+    const index = parseInt(button.dataset.index);
 
     this.deselect();
 

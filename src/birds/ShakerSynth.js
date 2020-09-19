@@ -43,26 +43,21 @@ class ShakerSynth {
     this.sortedMarkerIndices = [];
     this.bufferIndex = -1;
 
-    this.engine = new SegmentEngine();
+    const engine = new SegmentEngine();
+    engine.connect(audioContext.destination);
+    engine.periodAbs = 0;
+    engine.periodRel = 0.5;
+    engine.durationAbs = 0;
+    engine.durationRel = 1;
+    engine.offset = 0;
+    engine.attackAbs = 0.005;
+    engine.attackRel = 0.0;
+    engine.releaseAbs = 0.0;
+    engine.releaseRel = 0.25;
+    engine.resamplingVar = 100;
+    engine.gain = 1.0;
+    this.engine = engine;
 
-    this.engine.periodAbs = 0;
-    this.engine.periodRel = 0.5;
-    this.engine.durationAbs = 0;
-    this.engine.durationRel = 1;
-    this.engine.offset = 0;
-    this.engine.attackAbs = 0.005;
-    this.engine.attackRel = 0.0;
-    this.engine.releaseAbs = 0.0;
-    this.engine.releaseRel = 0.25;
-    this.engine.resamplingVar = 100;
-    this.engine.gain = 1.0;
-
-    this.level = audioContext.createGain();
-    this.engine.connect(this.level);
-
-    // audio i/o
-    this.input = null;
-    this.output = this.level;
   }
 
   trigger(energy) {

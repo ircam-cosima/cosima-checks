@@ -1,9 +1,9 @@
 //import '@babel/polyfill';
 import { default as audio } from 'waves-audio';
 import SelectorButtons from '../utils/SelectorButtons';
-import ScrubSynth from '../utils/ScrubSynth';
-import Mvavrg from '../utils/Mvavrg';
+import { Mvavrg } from '../utils/filters';
 import { setupOverlay, setupMotionInput, resumeAudioContext } from '../utils/helpers';
+import ScrubSynth from './ScrubSynth';
 
 const audioContext = audio.audioContext;
 
@@ -78,7 +78,6 @@ function onOff(index) {
 
 function main() {
   synth = new ScrubSynth();
-  synth.output.connect(audioContext.destination);
 
   positionFilter = new Mvavrg(4);
   cutoffFilter = new Mvavrg(8);

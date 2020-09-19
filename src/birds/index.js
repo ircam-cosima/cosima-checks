@@ -2,9 +2,9 @@
 import { default as audio } from 'waves-audio';
 import MobileDetect from 'mobile-detect';
 import SelectorButtons from '../utils/SelectorButtons';
-import ShakerSynth from '../utils/ShakerSynth';
-import Lowpass from '../utils/Lowpass';
+import { Lowpass } from '../utils/filters';
 import { setupOverlay, setupMotionInput, resumeAudioContext } from '../utils/helpers';
+import ShakerSynth from './ShakerSynth';
 
 const audioContext = audio.audioContext;
 
@@ -94,7 +94,6 @@ function main() {
   // })();
 
   synth = new ShakerSynth();
-  synth.output.connect(audioContext.destination);
 
   selectorButtons = new SelectorButtons('button-container', onOn, onOff);
   
