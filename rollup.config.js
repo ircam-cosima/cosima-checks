@@ -94,4 +94,22 @@ export default [{
   watch: {
     clearScreen: false
   },
+},{
+  input: 'src/mojo/index.js',
+  output: [{
+    file: 'public/mojo/index.js',
+    format: 'iife',
+    sourcemap: 'inline',
+    name: 'app',
+  }, ],
+  plugins: [
+    commonjs(),
+    babel(),
+    resolve({ preferBuiltins: true }),
+    globals(),
+    nodeBuiltins(),
+  ],
+  watch: {
+    clearScreen: false
+  },
 },];
